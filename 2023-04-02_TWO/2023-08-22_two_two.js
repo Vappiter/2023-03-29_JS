@@ -19,10 +19,23 @@ console.log(Basket[0]);
 // document.write(varName);
 
 function addBasket(addClothes, addCount){
-    if (Basket.good.id != addClothes.id)
-        {Basket.push ({good: addClothes, count: addCount})}
+    let addIndex;
+    let indBasket;
+    console.log(addClothes.id)
+    if (Basket.length === 0)
+     {
+     Basket.push ({good: addClothes, count: addCount})
+     }
     else
-        {alert('Такой товар уже есть в корзине')}
+        { 
+        indBasket = Basket.findIndex(item => item.good.id === addClothes.id);
+        if (indBasket === -1)
+            {Basket.push ({good: addClothes, count: addCount})
+            }
+        else
+            {console.log("Такой товар уже есть в корзине");
+            }
+        }
 }
 
 function delBasket(delClothes)
@@ -32,13 +45,43 @@ function delBasket(delClothes)
         delId = delClothes.id;
         console.log(delId);
         indBasket = Basket.findIndex(item => item.good.id === delId);
+        if (indBasket === -1)
+            {
+            console.log("Такого товара нет в корзине");   
+            }
         console.log (indBasket);
         delete Basket[indBasket];
         }
 
-// addBasket(Clothes[0], 10)
-// console.log(Basket)
-delBasket(Clothes[3])
-console.log(Basket)
+function clearBasket()
+    {
+    Basket.length = 0;
+    }
 
+function totalBasket(Basket)
+    {
+    let totalAmount = 0;
+    let totalSum = 0;
+    for(const goodInBasket of Basket)
+        {
+        totalAmount += goodInBasket.count
+        totalSum += goodInBasket.good.price * goodInBasket.count
+        }
+    return [totalAmount, totalSum]   
+    }
 
+addBasket(Clothes[1], 10);
+console.log(Basket);
+delBasket(Clothes[3]);
+console.log(Basket);
+clearBasket();
+console.log("Очищенный массив " + Basket.length);
+addBasket(Clothes[2], 20);
+console.log(Basket);
+addBasket(Clothes[4], 40);
+console.log(Basket);
+addBasket(Clothes[0], 99);
+console.log(Basket);
+const values = totalBasket(Basket);
+console.log("Общее количество товара " +  values[0]);
+console.log("Общая сумма товара в корзине " + values[1]);
