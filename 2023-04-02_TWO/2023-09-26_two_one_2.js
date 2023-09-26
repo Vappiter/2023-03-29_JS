@@ -1,18 +1,23 @@
-arrSimplenum=[];
 count = process.argv[2];
-let currentNumber = 2;
+
 console.log ("Вот массив из ", count, " простых чисел") 
-while (count != 0)
+console.log(isSimplenum(count));    
+
+function isSimplenum(n)
+  {
+  arrSimplenum=[];  
+  let currentNumber = 2;
+  while (n != 0)
     {
-      if (isPrime(currentNumber))
-        {
-          arrSimplenum.push(currentNumber);
-          count--;
-        }
+    if (isPrime(currentNumber))
+     {
+      arrSimplenum.push(currentNumber);
+      n--;
+     }
     currentNumber++;    
     }
-    console.log(arrSimplenum);    
-
+  return arrSimplenum;  
+  }
 function isPrime(n) 
   {
   for (let i = 2; i <= n/2; i++)
@@ -24,5 +29,4 @@ function isPrime(n)
     }
     return true;
   }
-
  

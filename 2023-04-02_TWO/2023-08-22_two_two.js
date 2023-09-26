@@ -49,8 +49,9 @@ function delBasket(delClothes)
             {
             console.log("Такого товара нет в корзине");   
             }
-        console.log (indBasket);
-        delete Basket[indBasket];
+        Basket.splice([indBasket],1);
+        console.log ("Массив после удаления");
+        console.log(Basket);
         }
 
 function clearBasket()
@@ -60,14 +61,15 @@ function clearBasket()
 
 function totalBasket(Basket)
     {
-    let totalAmount = 0;
-    let totalSum = 0;
+    let varAmount = 0;
+    let varSum = 0;
     for(const goodInBasket of Basket)
         {
-        totalAmount += goodInBasket.count
-        totalSum += goodInBasket.good.price * goodInBasket.count
+        varAmount += goodInBasket.count
+        varSum += goodInBasket.good.price * goodInBasket.count
         }
-    return [totalAmount, totalSum]   
+
+    return {totalAmount: varAmount, totalSum: varSum};   
     }
 
 addBasket(Clothes[1], 10);
@@ -83,5 +85,6 @@ console.log(Basket);
 addBasket(Clothes[0], 99);
 console.log(Basket);
 const values = totalBasket(Basket);
-console.log("Общее количество товара " +  values[0]);
-console.log("Общая сумма товара в корзине " + values[1]);
+// console.log(values);
+console.log("Общее количество товара " +  values.totalAmount);
+console.log("Общая сумма товара в корзине " + values.totalSum);
